@@ -21,7 +21,7 @@
 // - The 30s per-name throttle is in-memory only: it resets on a cold
 //   start, so it is best-effort, not a guarantee.
 
-const { getStore } = require('@netlify/blobs');
+const { getStore, connectLambda } = require('@netlify/blobs');
 
 const STORE_NAME = 'schism-leaderboard';
 const BOARD_KEY = 'board.json';
@@ -81,6 +81,12 @@ async function saveBoard(board) {
 
 exports.handler = async (event) => {
   try {
+    // V1 Lambda-style function: Netlify does NOT inject the Blobs context
+    // automatically here (that only happens for V2 functions), so load the
+    // credentials Netlify provides for this invocation first. Without this
+    // call getStore() throws "environment has not been configured to use
+    // Netlify Blobs" in production.
+    connectLambda(event);
     if (event.httpMethod === 'GET') {
       const board = await loadBoard();
       const { ranked, totals } = rankBoard(board.players);
