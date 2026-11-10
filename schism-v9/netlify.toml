@@ -1,0 +1,10 @@
+# Netlify config untuk schism.pro — site statis + 2 Functions
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+# Tidak ada build command: index.html sudah jadi (export dari artifact v9).
+# Netlify tetap menjalankan install dependencies + bundling Functions saat
+# deploy via Git. Untuk deploy via CLI, jalankan dulu:
+#   npm install --prefix netlify/functions
+# lalu: netlify deploy --prod --dir=. --functions=netlify/functions
