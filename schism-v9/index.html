@@ -384,6 +384,12 @@
       footer p b { color: var(--ink); }
       footer .disc { font-family: var(--mono); color: var(--price); font-weight: 700; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
       footer .colophon { font-family: var(--mono); font-size: 11px; letter-spacing: 0.05em; }
+      footer .x-link {
+        display: inline-flex; align-items: center; gap: 8px; min-height: 40px;
+        font-family: var(--mono); font-size: 13px; font-weight: 600; letter-spacing: 0.06em;
+        color: var(--ink); border: 1px solid var(--line2); background: var(--panel2); padding: 8px 13px;
+      }
+      footer .x-link:hover { color: var(--belief); border-color: var(--belief); text-decoration: none; }
 
       /* ---------- v2: venues + flow ---------- */
       .kline { display: block; font-family: var(--mono); font-size: 11.5px; color: var(--ink2); margin-top: 4px; line-height: 1.55; }
@@ -718,6 +724,12 @@
         </div>
         <div>
           <p><b>SCHISM</b> — One event. Two prices. One schism.</p>
+          <p>
+            <a class="x-link" href="https://x.com/Schism_pro" target="_blank" rel="noopener" aria-label="SCHISM on X — @Schism_pro">
+              <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              <span>@Schism_pro on X</span>
+            </a>
+          </p>
           <p class="colophon">Snapshots observed Nov 9, 2026 (UTC): Polymarket 18:29 · Kalshi 19:11 · Stock Tokens 19:13. Live refresh runs in your browser against the public APIs listed under Proof; Kalshi loads through this site's serverless proxy where deployed.</p>
         </div>
       </div>
