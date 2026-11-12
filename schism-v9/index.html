@@ -487,7 +487,6 @@
           <span class="brand-txt"><span class="brand-name">SCHISM</span><span class="brand-tag">One event · Two prices · One schism</span></span>
         </a>
         <nav class="main" aria-label="Sections">
-          <a href="#token">Token</a>
           <a href="#atlas">Atlas</a>
           <a href="#chart">Layered chart</a>
           <a href="#radar">Signal Radar</a>
@@ -544,64 +543,6 @@
           <div class="stat"><div class="v" id="statGap">–</div><div class="k">widest gap across the Atlas</div></div>
         </div>
       </div>
-
-      <!-- TOKEN $SCHISM -->
-      <section class="block wrap" id="token">
-        <div class="sec-head">
-          <h2>$SCHISM Token</h2>
-          <p>
-            The <b class="p">SCHISM</b> token is live — launched on <b>Pons</b> on <b>Robinhood Chain</b>.
-            Verify the contract address below before you trade; it is the only official address published on this site.
-          </p>
-        </div>
-
-        <div class="token-panel">
-          <div class="token-top">
-            <div class="token-id">
-              <div>
-                <div class="token-sym">$<span>SCHISM</span></div>
-                <div class="token-name">Schism · Robinhood Chain</div>
-              </div>
-            </div>
-            <span class="token-live"><i></i> Live on Pons</span>
-          </div>
-
-          <div class="token-grid">
-            <div class="token-cell">
-              <div class="k">Token</div>
-              <div class="v">Schism <small>Ticker · SCHISM</small></div>
-            </div>
-            <div class="token-cell">
-              <div class="k">Total supply</div>
-              <div class="v">1,000,000,000 <small>SCHISM</small></div>
-            </div>
-            <div class="token-cell">
-              <div class="k">Chain</div>
-              <div class="v cy">Robinhood Chain <small>Chain 4663 · via Pons</small></div>
-            </div>
-            <div class="token-cell">
-              <div class="k">Creator tax</div>
-              <div class="v am">2%</div>
-            </div>
-          </div>
-
-          <div class="ca-box">
-            <div class="ca-label"><span>Contract address — CA</span><b>Verify before trading</b></div>
-            <div class="ca-row">
-              <div class="ca-addr" id="caAddr">0x0661efb717111cc528d8a8da149b8ff97b7194ba</div>
-              <button class="copy-btn" id="copyCaBtn" type="button" aria-label="Copy contract address">
-                <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="2" d="M8 8h11v13H8z M5 16H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>
-                <span id="copyCaLabel">Copy CA</span>
-              </button>
-            </div>
-            <div class="token-actions">
-              <a class="btn trade" href="https://ponsfamily.com/token/0x0661efb717111cc528d8a8da149b8ff97b7194ba" target="_blank" rel="noopener">Trade on Pons →</a>
-              <a class="btn" href="https://ponsfamily.com/token/0x0661efb717111cc528d8a8da149b8ff97b7194ba" target="_blank" rel="noopener">View token on Pons</a>
-              <span class="token-note">Official link: ponsfamily.com/token/0x0661…94ba</span>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <!-- ATLAS -->
       <section class="block wrap" id="atlas">
@@ -826,12 +767,7 @@
             SCHISM is an analytics tool. Odds and prices move fast and models are wrong often — the Gap Score is a
             measurement, not a promise. Verify every number at its source before acting on it.
           </p>
-          <p>
-            The official $SCHISM token is listed in the <a href="#token">Token section</a> above — CA
-            <span class="mono">0x0661efb717111cc528d8a8da149b8ff97b7194ba</span> on Robinhood Chain, launched on Pons.
-            Any other SCHISM token address is not from this project.
-            Trading and vault features are not part of this site.
-          </p>
+          <p>Trading and vault features are not part of this site.</p>
         </div>
         <div>
           <p><b>SCHISM</b> — One event. Two prices. One schism.</p>
@@ -1675,41 +1611,6 @@
         refreshing = false;
       }
       $("#refreshBtn").addEventListener("click", () => refreshAll(true));
-
-      /* ---------- token CA copy ---------- */
-      (function () {
-        var btn = document.getElementById("copyCaBtn");
-        var label = document.getElementById("copyCaLabel");
-        var addrEl = document.getElementById("caAddr");
-        if (!btn || !addrEl) return;
-        var ca = addrEl.textContent.trim();
-        var timer = null;
-        function done() {
-          btn.classList.add("copied");
-          if (label) label.textContent = "Copied ✓";
-          clearTimeout(timer);
-          timer = setTimeout(function () {
-            btn.classList.remove("copied");
-            if (label) label.textContent = "Copy CA";
-          }, 2000);
-        }
-        btn.addEventListener("click", function () {
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(ca).then(done).catch(function () { fallback(); });
-          } else { fallback(); }
-          function fallback() {
-            var ta = document.createElement("textarea");
-            ta.value = ca;
-            ta.setAttribute("readonly", "");
-            ta.style.position = "absolute";
-            ta.style.left = "-9999px";
-            document.body.appendChild(ta);
-            ta.select();
-            try { document.execCommand("copy"); done(); } catch (e) {}
-            document.body.removeChild(ta);
-          }
-        });
-      })();
 
       /* ---------- init ---------- */
       renderAtlas();
