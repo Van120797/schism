@@ -377,56 +377,6 @@
       .proof-card li { margin-bottom: 6px; }
       .proof-card .mono { font-size: 12px; word-break: break-all; }
 
-      /* ---------- token $SCHISM ---------- */
-      #token { scroll-margin-top: 72px; }
-      .token-panel { border: 1px solid var(--line2); background: var(--panel); margin-top: 20px; }
-      .token-top {
-        display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center; justify-content: space-between;
-        padding: 16px 18px; border-bottom: 1px solid var(--line); background: var(--panel2);
-      }
-      .token-id { display: flex; align-items: center; gap: 14px; min-width: 0; }
-      .token-sym {
-        font-family: var(--mono); font-weight: 700; font-size: 26px; letter-spacing: 0.04em; color: var(--ink); line-height: 1;
-      }
-      .token-sym span { color: var(--price); }
-      .token-name { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink3); margin-top: 5px; }
-      .token-live { display: inline-flex; align-items: center; gap: 7px; font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--flow); border: 1px solid rgba(52,211,153,0.5); background: var(--flow-dim); padding: 5px 9px; white-space: nowrap; }
-      .token-live i { width: 7px; height: 7px; background: var(--flow); display: block; }
-      .token-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
-      .token-cell { padding: 14px 18px 15px; }
-      .token-cell + .token-cell { border-left: 1px solid var(--line); }
-      .token-cell .k { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.11em; text-transform: uppercase; color: var(--ink3); }
-      .token-cell .v { font-family: var(--mono); font-size: 16px; font-weight: 600; color: var(--ink); margin-top: 4px; line-height: 1.35; }
-      .token-cell .v small { display: block; font-size: 11.5px; font-weight: 400; color: var(--ink3); margin-top: 2px; }
-      .token-cell .v.cy { color: var(--belief); } .token-cell .v.am { color: var(--price); }
-      @media (max-width: 760px) {
-        .token-grid { grid-template-columns: 1fr 1fr; }
-        .token-cell:nth-child(3) { border-left: none; }
-        .token-cell:nth-child(n+3) { border-top: 1px solid var(--line); }
-        #token { scroll-margin-top: 116px; }
-      }
-      .ca-box { border-top: 1px solid var(--line); padding: 16px 18px 18px; }
-      .ca-label { font-family: var(--mono); font-size: 10.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink3); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 9px; }
-      .ca-label b { color: var(--price); }
-      .ca-row { display: flex; gap: 10px; align-items: stretch; }
-      .ca-addr {
-        flex: 1; min-width: 0; font-family: var(--mono); font-size: 14px; line-height: 1.5; color: var(--belief);
-        background: var(--stage); border: 1px solid var(--line2); padding: 12px 13px; word-break: break-all;
-        display: flex; align-items: center;
-      }
-      .copy-btn {
-        flex: none; border: 1px solid var(--belief); background: var(--belief-dim); color: var(--belief);
-        font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
-        padding: 0 18px; min-height: 48px; display: inline-flex; align-items: center; gap: 8px;
-      }
-      .copy-btn:hover { background: rgba(34,211,238,0.2); }
-      .copy-btn.copied { border-color: var(--flow); color: var(--flow); background: var(--flow-dim); }
-      .token-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; align-items: center; }
-      .btn.trade { color: #0a0f18; background: var(--price); border-color: var(--price); font-weight: 700; }
-      .btn.trade:hover { background: #fbbf24; border-color: #fbbf24; text-decoration: none; }
-      .token-note { font-family: var(--mono); font-size: 11.5px; color: var(--ink3); line-height: 1.6; }
-      @media (max-width: 560px) { .ca-row { flex-direction: column; } .copy-btn { justify-content: center; width: 100%; } }
-
       footer { margin-top: 64px; border-top: 2px solid var(--line2); background: var(--panel); padding: 24px 0 40px; }
       footer .cols { display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px 56px; }
       @media (max-width: 760px) { footer .cols { grid-template-columns: 1fr; } }
@@ -477,6 +427,94 @@
         footer { padding-bottom: 48px; }
       }
 
+      /* ---------- v3: living motion (Terminal stays, the page breathes) ---------- */
+      @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+      @keyframes breathe { from { opacity: 0.35; transform: scale(1); } to { opacity: 1; transform: scale(1.12); } }
+      @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+      @keyframes pulseDot { 0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.55); } 70% { box-shadow: 0 0 0 7px rgba(52, 211, 153, 0); } 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); } }
+      @keyframes liveGlow { from { box-shadow: 0 0 0 rgba(52, 211, 153, 0); } to { box-shadow: 0 0 12px rgba(52, 211, 153, 0.28); } }
+      @keyframes flashBg { 0% { background-color: rgba(34, 211, 238, 0.28); } 100% { background-color: transparent; } }
+      @keyframes ticker { to { transform: translateX(-50%); } }
+      @keyframes drawline { from { stroke-dashoffset: 2400; } to { stroke-dashoffset: 0; } }
+      @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes halo { 0% { transform: scale(0.6); opacity: 0.9; } 100% { transform: scale(2.4); opacity: 0; } }
+      @keyframes stageGlow { from { box-shadow: 0 0 0 rgba(34, 211, 238, 0); } to { box-shadow: 0 0 42px rgba(34, 211, 238, 0.07); } }
+
+      /* hero: living canvas backdrop + breathing glows */
+      .hero { position: relative; overflow: hidden; }
+      #heroCanvas {
+        position: absolute; inset: 0; width: 100%; height: 100%;
+        pointer-events: none; z-index: 0; opacity: 0.9;
+        -webkit-mask-image: linear-gradient(to bottom, transparent, black 14%, black 80%, transparent);
+        mask-image: linear-gradient(to bottom, transparent, black 14%, black 80%, transparent);
+      }
+      .hero > *:not(#heroCanvas) { position: relative; z-index: 1; }
+      .hero::before, .hero::after {
+        content: ""; position: absolute; border-radius: 50%; pointer-events: none; z-index: 0;
+        filter: blur(70px); animation: breathe 9s ease-in-out infinite alternate;
+      }
+      .hero::before { width: 420px; height: 420px; top: -160px; right: -80px; background: rgba(34, 211, 238, 0.10); }
+      .hero::after { width: 380px; height: 380px; bottom: -180px; left: -100px; background: rgba(245, 158, 11, 0.08); animation-delay: -4.5s; }
+      .hero h1 { animation: rise 0.7s 0.05s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+      .hero .lede { animation: rise 0.7s 0.16s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+      .hero .deflist { animation: rise 0.7s 0.26s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+      .hero .hero-ctas { animation: rise 0.7s 0.36s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+      .hero .howto { animation: rise 0.7s 0.46s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+      .hero .stat-strip { animation: rise 0.7s 0.56s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+      .cursor {
+        display: inline-block; width: 0.45em; height: 1em; margin-left: 0.08em;
+        background: var(--belief); vertical-align: -0.12em; animation: blink 1.1s steps(1) infinite;
+      }
+
+      /* live ticker strip (Atlas top movers, slow marquee) */
+      .ticker { overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--panel); }
+      .ticker-track { display: inline-flex; align-items: center; white-space: nowrap; width: max-content; padding: 8px 0; animation: ticker 48s linear infinite; }
+      .ticker:hover .ticker-track { animation-play-state: paused; }
+      .tk-item { font-family: var(--mono); font-size: 12px; color: var(--ink2); margin-right: 26px; display: inline-flex; gap: 14px; align-items: baseline; }
+      .tk-item b { color: var(--ink); font-weight: 600; }
+      .tk-b { color: var(--belief); } .tk-p { color: var(--price); } .tk-dim { color: var(--ink3); }
+      .tk-sep { color: var(--line2); margin-right: 26px; font-family: var(--mono); font-size: 12px; }
+      @media (max-width: 720px) { .tk-item, .tk-sep { font-size: 11.5px; margin-right: 20px; } .tk-item { gap: 10px; } }
+
+      /* live indicators pulse; changed values flash once */
+      .status-pill.live .status-dot, .chain-line.live .dot { animation: pulseDot 2s ease-out infinite; }
+      .badge.live { animation: liveGlow 2.6s ease-in-out infinite alternate; }
+      .flash { animation: flashBg 1.1s ease-out; }
+
+      /* scroll reveal (JS adds .reveal; no-JS stays visible) */
+      .js .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1); }
+      .js .reveal.in { opacity: 1; transform: none; }
+
+      /* hover states that feel alive */
+      .btn, .mini-btn, .nav-btn, .toggle-btn, .call-btn { transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease; }
+      .btn:hover, .mini-btn:hover, .nav-btn:hover, .toggle-btn:hover { transform: translateY(-1px); }
+      .btn.primary:hover { box-shadow: 0 0 24px rgba(34, 211, 238, 0.18); }
+      .call-btn:hover:not(:disabled) { transform: translateY(-1px); }
+      nav.main a { transition: color 0.15s ease, box-shadow 0.15s ease; }
+      nav.main a:hover { box-shadow: inset 0 -2px 0 var(--belief); }
+      table.atlas td { transition: background-color 0.18s ease, box-shadow 0.18s ease; }
+      table.atlas tbody tr:hover td:first-child { box-shadow: inset 3px 0 0 var(--belief); }
+      .card, .proof-card, .panel { transition: border-color 0.25s ease, box-shadow 0.25s ease; }
+      .card:hover, .proof-card:hover, .panel:hover { border-color: var(--line2); box-shadow: 0 6px 28px rgba(0, 0, 0, 0.35); }
+
+      /* score bars glide instead of jumping */
+      .score-bar i { transition: width 0.7s cubic-bezier(0.22, 0.61, 0.36, 1); }
+
+      /* layered chart: draw-in on first paint, pulsing live edge, breathing stage */
+      .stage { animation: stageGlow 6s ease-in-out infinite alternate; }
+      .layer path.draw { stroke-dasharray: 2400; stroke-dashoffset: 2400; animation: drawline 1.2s 0.15s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+      .layer path.area-in { opacity: 0; animation: fadein 0.8s 0.45s ease forwards; }
+      .end-dot-halo { transform-box: fill-box; transform-origin: center; animation: halo 2.4s ease-out infinite; }
+
+      /* reduced motion: everything still, everything visible */
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+        html { scroll-behavior: auto; }
+        .js .reveal { opacity: 1 !important; transform: none !important; }
+        #heroCanvas { display: none; }
+        .ticker-track { animation: none !important; }
+      }
+
     </style>
   </head>
   <body>
@@ -501,9 +539,10 @@
     <main id="top">
       <!-- HERO -->
       <div class="wrap hero">
+        <canvas id="heroCanvas" aria-hidden="true"></canvas>
         <div class="hero-grid">
           <div>
-            <h1>One event. <span class="c-belief">Two prices.</span><br />One <span class="c-price">schism</span>.</h1>
+            <h1>One event. <span class="c-belief">Two prices.</span><br />One <span class="c-price">schism</span>.<span class="cursor" aria-hidden="true"></span></h1>
             <p class="lede">
               A prediction market and a perp can price the same event — and disagree. SCHISM watches the
               split between what the crowd believes and what the market charges, scores how likely the gap
@@ -543,6 +582,9 @@
           <div class="stat"><div class="v" id="statGap">–</div><div class="k">widest gap across the Atlas</div></div>
         </div>
       </div>
+
+      <!-- LIVE TICKER: widest gaps across the Atlas, slow marquee (decorative; same data as the Atlas) -->
+      <div class="ticker" aria-hidden="true"><div class="ticker-track" id="tickerTrack"></div></div>
 
       <!-- ATLAS -->
       <section class="block wrap" id="atlas">
@@ -784,6 +826,8 @@
 
     <script>
       "use strict";
+      document.documentElement.classList.add("js");
+      const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       /* Snapshot baked at build time from live Polymarket / Coinbase / Yahoo reads.
          snapOdds observed 2026-11-09 18:29 UTC per project snapshot; histories are the
          real 7 days of hourly points ending at build time. */
@@ -1023,16 +1067,28 @@
               <a class="mini-btn" style="display:inline-flex;align-items:center" href="https://polymarket.com/event/${e.eventSlug || ""}" target="_blank" rel="noopener">Polymarket ↗</a>
             </div>
           </article>`).join("");
+        renderTicker();
         renderStats();
       }
 
+      let statsPrimed = false;
       function renderStats() {
         const sig = events.filter((e) => e.leader);
-        $("#statSignals").textContent = sig.length;
         const crs = events.map((e) => e.closeRate).filter((x) => x != null).sort((a, b) => a - b);
-        $("#statClose").textContent = crs.length ? fmtPct(crs[Math.floor(crs.length / 2)]) : "—";
+        const closeTxt = crs.length ? fmtPct(crs[Math.floor(crs.length / 2)]) : "—";
         const widest = events.reduce((m, e) => (Math.abs(e.gap || 0) > Math.abs(m.gap || 0) ? e : m), events[0]);
-        $("#statGap").textContent = widest && widest.gap != null ? fmtGap(widest.gap) : "—";
+        const gapTxt = widest && widest.gap != null ? fmtGap(widest.gap) : "—";
+        if (!statsPrimed) {
+          statsPrimed = true;
+          countUp($("#statEvents"), events.length);
+          countUp($("#statSignals"), sig.length);
+          $("#statClose").textContent = closeTxt;
+          $("#statGap").textContent = gapTxt;
+        } else {
+          setFlash($("#statSignals"), String(sig.length));
+          setFlash($("#statClose"), closeTxt);
+          setFlash($("#statGap"), gapTxt);
+        }
       }
 
       document.addEventListener("click", (ev) => {
@@ -1059,9 +1115,9 @@
       /* ---------- radar ---------- */
       function renderRadar() {
         const sig = events.filter((e) => e.leader);
-        $("#rcBelief").textContent = sig.filter((e) => e.leader === "belief").length;
-        $("#rcPrice").textContent = sig.filter((e) => e.leader === "price").length;
-        $("#rcFlow").textContent = sig.filter((e) => e.leader === "flow").length;
+        setFlash($("#rcBelief"), String(sig.filter((e) => e.leader === "belief").length));
+        setFlash($("#rcPrice"), String(sig.filter((e) => e.leader === "price").length));
+        setFlash($("#rcFlow"), String(sig.filter((e) => e.leader === "flow").length));
         $("#signalList").innerHTML = sig.length ? sig.map((e) => `
           <div class="signal">
             <div class="s-name"><span>${e.label}</span>${leaderTag(e)}</div>
@@ -1157,12 +1213,19 @@
           const y = H - PAD - g * (H - 2 * PAD);
           return `<line x1="${PAD}" y1="${y}" x2="${W - PAD}" y2="${y}" stroke="#22314a" stroke-width="1"/><text x="${PAD - 5}" y="${y + 3}" fill="#8ba1ba" font-size="10" font-family="IBM Plex Mono" text-anchor="end">${g * 100}%</text>`;
         }).join("");
+        // v3 motion: lines draw themselves in on first paint; a pulsing dot marks the live edge
+        const firstDraw = !chartDrawn;
+        const drawCls = firstDraw ? "draw" : "";
+        const areaCls = firstDraw ? "area-in" : "";
+        const endX = X(t1);
+        const endOddsY = odds.length ? H - PAD - odds[odds.length - 1][1] * (H - 2 * PAD) : 0;
         $("#layerFront").innerHTML = `
           <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
             ${gridF}
-            <path d="${area}" fill="rgba(34,211,238,0.13)"/>
+            <path d="${area}" fill="rgba(34,211,238,0.13)" class="${areaCls}"/>
             <path d="${fairPath}" fill="none" stroke="#e8eef6" stroke-width="1.4" stroke-dasharray="5 5" opacity="0.65"/>
-            <path d="${oddsPath}" fill="none" stroke="#22d3ee" stroke-width="2.4"/>
+            <path d="${oddsPath}" fill="none" stroke="#22d3ee" stroke-width="2.4" class="${drawCls}"/>
+            ${odds.length ? `<circle class="end-dot-halo" cx="${endX}" cy="${endOddsY}" r="10" fill="none" stroke="#22d3ee" stroke-width="1.5"/><circle cx="${endX}" cy="${endOddsY}" r="3.5" fill="#22d3ee"/>` : ""}
             <text x="${W - PAD}" y="${H - 6}" fill="#71839a" font-size="10" font-family="IBM Plex Mono" text-anchor="end">${odds.length ? fmtDate(t0) + " → " + fmtDate(t1) : ""}</text>
           </svg>`;
         // back layer: price on its own scale
@@ -1172,24 +1235,27 @@
         const padv = (mx - mn) * 0.12; mn -= padv; mx += padv;
         const pricePath = pathFrom(price, W, H, mn, mx, PAD);
         const strikeY = (e.strike > mn && e.strike < mx) ? H - PAD - ((e.strike - mn) / (mx - mn)) * (H - 2 * PAD) : null;
+        const endPriceY = price.length ? H - PAD - ((price[price.length - 1][1] - mn) / (mx - mn)) * (H - 2 * PAD) : 0;
         $("#layerBack").innerHTML = `
           <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">
             ${strikeY ? `<line x1="${PAD}" y1="${strikeY}" x2="${W - PAD}" y2="${strikeY}" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3 6" opacity="0.7"/><text x="${W - PAD - 2}" y="${strikeY - 5}" fill="#f59e0b" font-size="10" font-family="IBM Plex Mono" text-anchor="end">strike ${fmtPx(e.strike)}</text>` : ""}
-            <path d="${pricePath}" fill="none" stroke="#f59e0b" stroke-width="2.2"/>
+            <path d="${pricePath}" fill="none" stroke="#f59e0b" stroke-width="2.2" class="${drawCls}"/>
+            ${price.length ? `<circle class="end-dot-halo" cx="${W - PAD}" cy="${endPriceY}" r="10" fill="none" stroke="#f59e0b" stroke-width="1.5"/><circle cx="${W - PAD}" cy="${endPriceY}" r="3.5" fill="#f59e0b"/>` : ""}
             <text x="${W - 24}" y="16" fill="#f59e0b" font-size="10" font-family="IBM Plex Mono" text-anchor="end">${fmtPx(mx - padv)}</text>
             <text x="${W - 24}" y="${H - PAD - 4}" fill="#f59e0b" font-size="10" font-family="IBM Plex Mono" text-anchor="end">${fmtPx(mn + padv)}</text>
           </svg>`;
+        chartDrawn = true;
         // readouts
-        $("#roOdds").textContent = fmtPct(e.odds);
+        setFlash($("#roOdds"), fmtPct(e.odds));
         const rk = $("#roKalshi");
         if (e.kalshi) {
           const sp = e.odds != null ? e.odds - e.kalshi.mid : null;
           rk.innerHTML = fmtPct(e.kalshi.mid) + (sp != null ? ` <small>venues ${fmtGap(sp)}</small>` : "") + (e.kalshi.near ? ` <small>nearest mkt</small>` : "");
           rk.style.color = "var(--ink)";
         } else { rk.textContent = "no equivalent"; rk.style.color = "var(--ink3)"; }
-        $("#roFair").textContent = e.fair == null ? "—" : fmtPct(e.fair, 1);
+        setFlash($("#roFair"), e.fair == null ? "—" : fmtPct(e.fair, 1));
         const rg = $("#roGap");
-        rg.textContent = e.gap == null ? "—" : fmtGap(e.gap);
+        setFlash(rg, e.gap == null ? "—" : fmtGap(e.gap));
         rg.style.color = e.gap == null ? "" : (e.gap >= 0 ? "var(--belief)" : "var(--price)");
         $("#roPrice").innerHTML = fmtPx(e.price) + ` <small>${e.symbol.replace("-USD", "")}</small>`;
         tickClock();
@@ -1612,6 +1678,133 @@
       }
       $("#refreshBtn").addEventListener("click", () => refreshAll(true));
 
+      /* ---------- v3 motion: flash, count-up, ticker, hero canvas, scroll reveal ---------- */
+      let chartDrawn = false;
+
+      // Set text; if it changed, flash the cell once so live updates are visible.
+      function setFlash(el, text) {
+        if (!el || el.textContent === text) return;
+        el.textContent = text;
+        if (REDUCED_MOTION) return;
+        el.classList.remove("flash");
+        void el.offsetWidth; // restart the animation
+        el.classList.add("flash");
+      }
+
+      // Count 0 -> target over ~0.9s (first paint only).
+      function countUp(el, target) {
+        if (!el) return;
+        if (REDUCED_MOTION || typeof target !== "number" || !isFinite(target)) { el.textContent = target; return; }
+        const dur = 900, t0 = performance.now();
+        (function step(now) {
+          const p = Math.min(1, (now - t0) / dur);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(target * eased);
+          if (p < 1) requestAnimationFrame(step);
+        })(t0);
+      }
+
+      // Ticker: widest gaps across the Atlas, duplicated 2x for a seamless -50% loop.
+      function renderTicker() {
+        const track = $("#tickerTrack");
+        if (!track) return;
+        const top = events.filter((e) => e.gap != null)
+          .sort((a, b) => Math.abs(b.gap) - Math.abs(a.gap)).slice(0, 8);
+        if (!top.length) { track.innerHTML = ""; return; }
+        const item = (e) => `<span class="tk-item"><b>${e.label}</b><span class="tk-b">YES ${fmtPct(e.odds)}</span><span class="${e.gap >= 0 ? "tk-b" : "tk-p"}">GAP ${fmtGap(e.gap)}</span><span class="tk-dim">SCORE ${e.score == null ? "—" : e.score}</span></span>`;
+        const unit = top.map(item).join(`<span class="tk-sep">·</span>`) + `<span class="tk-sep">·</span>`;
+        track.innerHTML = unit + unit;
+      }
+
+      // Hero canvas: two gently wobbling divergence lines (Belief rising, Price falling)
+      // plus slow-drifting particles. Pauses off-screen and when the tab is hidden.
+      function initHeroCanvas() {
+        const cv = $("#heroCanvas");
+        if (!cv || REDUCED_MOTION) return;
+        const ctx = cv.getContext("2d");
+        if (!ctx) return;
+        const DPR = Math.min(window.devicePixelRatio || 1, 1.5);
+        let w = 0, h = 0, running = false, raf = 0, t0 = 0;
+        const dots = [];
+        function resize() {
+          const r = cv.parentElement.getBoundingClientRect();
+          w = Math.max(1, r.width); h = Math.max(1, r.height);
+          cv.width = Math.floor(w * DPR);
+          cv.height = Math.floor(h * DPR);
+          ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+          const n = w < 720 ? 18 : 34;
+          dots.length = 0;
+          for (let i = 0; i < n; i++) {
+            dots.push({
+              x: Math.random() * w, y: Math.random() * h,
+              r: 0.6 + Math.random() * 1.2,
+              vx: (Math.random() - 0.5) * 0.12, vy: (Math.random() - 0.5) * 0.08,
+              a: 0.12 + Math.random() * 0.3,
+              c: Math.random() < 0.45 ? "34,211,238" : (Math.random() < 0.5 ? "245,158,11" : "219,230,244"),
+            });
+          }
+        }
+        function drawLine(y0, y1, phase, amp, color, width, alpha) {
+          ctx.beginPath();
+          for (let x = 0; x <= w; x += 8) {
+            const p = x / w;
+            const y = y0 + (y1 - y0) * p + Math.sin(p * 5 + phase) * amp + Math.sin(p * 11 + phase * 1.7) * amp * 0.4;
+            if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          }
+          ctx.strokeStyle = `rgba(${color},${alpha})`;
+          ctx.lineWidth = width;
+          ctx.lineJoin = "round";
+          ctx.stroke();
+        }
+        function frame(now) {
+          if (!running) return;
+          const t = (now - t0) / 1000;
+          ctx.clearRect(0, 0, w, h);
+          // glow pass (wide + faint), then the crisp line — Belief rises, Price falls
+          drawLine(h * 0.66, h * 0.14, t * 0.22, 10, "34,211,238", 8, 0.05);
+          drawLine(h * 0.66, h * 0.14, t * 0.22, 10, "34,211,238", 1.4, 0.45);
+          drawLine(h * 0.30, h * 0.80, t * 0.17 + 2, 10, "245,158,11", 8, 0.05);
+          drawLine(h * 0.30, h * 0.80, t * 0.17 + 2, 10, "245,158,11", 1.4, 0.40);
+          for (const d of dots) {
+            d.x += d.vx; d.y += d.vy;
+            if (d.x < -4) d.x = w + 4; if (d.x > w + 4) d.x = -4;
+            if (d.y < -4) d.y = h + 4; if (d.y > h + 4) d.y = -4;
+            ctx.beginPath();
+            ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${d.c},${d.a})`;
+            ctx.fill();
+          }
+          raf = requestAnimationFrame(frame);
+        }
+        function start() {
+          if (running) return;
+          running = true;
+          t0 = performance.now();
+          raf = requestAnimationFrame(frame);
+        }
+        function stop() { running = false; cancelAnimationFrame(raf); }
+        resize();
+        let rz;
+        window.addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(resize, 150); });
+        if ("IntersectionObserver" in window) {
+          new IntersectionObserver((entries) => { entries[0].isIntersecting ? start() : stop(); }, { threshold: 0 }).observe(cv);
+        } else { start(); }
+        document.addEventListener("visibilitychange", () => { document.hidden ? stop() : start(); });
+      }
+
+      // Scroll reveal: sections fade/slide in as they enter view.
+      function initReveal() {
+        if (REDUCED_MOTION || !("IntersectionObserver" in window)) return;
+        const els = document.querySelectorAll(".sec-head, .chart-shell, .table-scroll, .cards, .panel, .proof-card");
+        els.forEach((el) => el.classList.add("reveal"));
+        const io = new IntersectionObserver((entries) => {
+          for (const en of entries) {
+            if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+          }
+        }, { threshold: 0.1, rootMargin: "0px 0px -6% 0px" });
+        els.forEach((el) => io.observe(el));
+      }
+
       /* ---------- init ---------- */
       renderAtlas();
       renderRadar();
@@ -1619,6 +1812,8 @@
       renderChart();
       loadGlobalBoard();
       refreshAll(false);
+      initHeroCanvas();
+      initReveal();
     </script>
   </body>
 </html>
