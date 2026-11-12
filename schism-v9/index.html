@@ -199,6 +199,16 @@
       .ev-name { font-weight: 600; font-size: 15.5px; line-height: 1.35; }
       .ev-q { color: var(--ink3); font-size: 13px; line-height: 1.5; margin-top: 3px; }
       .mono { font-family: var(--mono); }
+      .token-box { border: 1px solid var(--line2); padding: 20px 22px; margin-top: 14px; background: var(--panel); }
+      .token-ca { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+      .token-ca-label { font-size: 12px; letter-spacing: .12em; color: var(--ink2); }
+      .token-ca code { font-size: 15px; color: var(--ink); word-break: break-all; }
+      .copy-btn { padding: 6px 14px; font-size: 13px; }
+      .token-facts { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 16px; color: var(--ink2); font-size: 14px; }
+      .token-facts b { color: var(--ink); font-weight: 600; margin-right: 6px; }
+      .token-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+      .token-live-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--flow); margin-right: 4px; animation: pulseDot 2s ease-out infinite; }
+      .token-foot { font-size: 13px; word-break: break-all; }
       .odds { font-family: var(--mono); font-size: 16px; font-weight: 600; color: var(--belief); }
       .fair { font-family: var(--mono); font-size: 12.5px; color: var(--ink3); display: block; margin-top: 2px; }
       .px { font-family: var(--mono); font-weight: 600; color: var(--price); }
@@ -531,6 +541,7 @@
           <a href="#flow">Flow</a>
           <a href="#calls">Call the Close</a>
           <a href="#proof">Proof</a>
+          <a href="#token">Token</a>
         </nav>
         <span class="status-pill" id="statusPill" title="Snapshot · Nov 9, 2026, 18:29 UTC"><span class="status-dot"></span><span id="statusText">Snapshot · 18:29 UTC</span></span>
       </div>
@@ -799,6 +810,30 @@
           </div>
         </div>
       </section>
+
+      <section class="block wrap" id="token">
+        <div class="sec-head">
+          <h2>$SCHISM — live on Pons</h2>
+          <p>The SCHISM token trades on Pons (Robinhood Chain). Always verify the contract address below — it is the only official one.</p>
+        </div>
+        <div class="token-box">
+          <div class="token-ca">
+            <span class="token-ca-label">CONTRACT</span>
+            <code class="mono" id="tokenCa">0xc76bce8fbaa09d9bd27a8bbc639c25b6f9b6e0ac</code>
+            <button class="btn copy-btn" id="copyCaBtn" type="button">Copy</button>
+          </div>
+          <div class="token-facts">
+            <span><b>Supply</b> 1,000,000,000</span>
+            <span><b>Creator tax</b> 2%</span>
+            <span><b>Chain</b> Robinhood Chain (4663)</span>
+            <span><b>Status</b> <span class="token-live-dot"></span>Live</span>
+          </div>
+          <div class="token-links">
+            <a class="btn primary" href="https://pons.family/" target="_blank" rel="noopener">Trade on Pons</a>
+            <a class="btn" href="https://robinhoodchain.blockscout.com/token/0xc76bce8fbaa09d9bd27a8bbc639c25b6f9b6e0ac" target="_blank" rel="noopener">View on Blockscout</a>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer>
@@ -819,6 +854,7 @@
               <span>@Schism_pro on X</span>
             </a>
           </p>
+          <p class="mono token-foot">Token: <a href="#token">0xc76bce8fbaa09d9bd27a8bbc639c25b6f9b6e0ac</a></p>
           <p class="colophon">Snapshots observed Nov 9, 2026 (UTC): Polymarket 18:29 · Kalshi 19:11 · Stock Tokens 19:13. Live refresh runs in your browser against the public APIs listed under Proof; Kalshi loads through this site's serverless proxy where deployed.</p>
         </div>
       </div>
@@ -828,6 +864,25 @@
       "use strict";
       document.documentElement.classList.add("js");
       const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      /* Token CA copy button */
+      (function () {
+        const btn = document.getElementById("copyCaBtn");
+        const ca = document.getElementById("tokenCa");
+        if (!btn || !ca) return;
+        btn.addEventListener("click", async () => {
+          const text = ca.textContent.trim();
+          let ok = false;
+          try { await navigator.clipboard.writeText(text); ok = true; }
+          catch (e) {
+            const ta = document.createElement("textarea");
+            ta.value = text; document.body.appendChild(ta); ta.select();
+            try { ok = document.execCommand("copy"); } catch (_) {}
+            ta.remove();
+          }
+          btn.textContent = ok ? "Copied \u2713" : "Copy failed";
+          setTimeout(() => { btn.textContent = "Copy"; }, 1800);
+        });
+      })();
       /* Snapshot baked at build time from live Polymarket / Coinbase / Yahoo reads.
          snapOdds observed 2026-11-09 18:29 UTC per project snapshot; histories are the
          real 7 days of hourly points ending at build time. */
